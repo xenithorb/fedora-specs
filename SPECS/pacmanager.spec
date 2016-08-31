@@ -55,4 +55,4 @@ rm -rf %{buildroot}/%{_libdir}/%{name}/ex/vte*
 
 %changelog
 * Wed Aug 31 2016 xenithorb <mike@mgoodwin.net>
--
+- Initial packaging of pacmanager RPM
