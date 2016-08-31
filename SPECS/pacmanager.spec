@@ -27,27 +27,26 @@ PuTTY, and/or mRemoteNG in the past may find this application useful.
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/{%{_mandir}/man1,%{_bindir},%{_datadir}/{%{name},applications}}
-mkdir -p %{buildroot}/{%{_libdir}/%{name},%{_libexecdir}/%{name}}
+mkdir -p %{buildroot}/{%{_mandir}/man1,%{_bindir}}
+mkdir -p %{buildroot}/%{_datadir}/{%{name}/{lib,res,utils},applications}
 mkdir -p %{buildroot}/%{_sysconfdir}/bash_completion.d
 
 install -m 755 pac %{buildroot}/%{_bindir}/%{name}
-install -m 755 utils/pac_from_mcm.pl %{buildroot}/%{_libexecdir}/%{name}
-install -m 755 utils/pac_from_putty.pl %{buildroot}/%{_libexecdir}/%{name}
+install -m 755 utils/pac_from_mcm.pl %{buildroot}/%{_datadir}/%{name}/utils
+install -m 755 utils/pac_from_putty.pl %{buildroot}/%{_datadir}/%{name}/utils
+
 cp -a res/pac.desktop %{buildroot}/%{_datadir}/applications/%{name}.desktop
 cp -a res/pac.1 %{buildroot}/%{_mandir}/man1/%{name}.1
-cp -a res/*.{png,jpg,pl,glade} res/termcap %{buildroot}/%{_datadir}/%{name}
-cp -a lib/* %{buildroot}/%{_libdir}/%{name}/
+cp -a res/*.{png,jpg,pl,glade} res/termcap %{buildroot}/%{_datadir}/%{name}/res/
+cp -a lib/* %{buildroot}/%{_datadir}/%{name}/lib/
 cp -a res/pac_bash_completion %{buildroot}/%{_sysconfdir}/bash_completion.d/%{name}
 # Remove the Vte binaries(?) and require perl-Gnome2-Vte instead
-rm -rf %{buildroot}/%{_libdir}/%{name}/ex/vte*
+rm -rf %{buildroot}/%{_datadir}/%{name}/lib/ex/vte*
 
 
 %files
 %doc README LICENSE
 %doc %{_mandir}/man1/%{name}*
-%{_libdir}/*
-%{_libexecdir}/*
 %{_datadir}/*
 %{_sysconfdir}/*
 %{_bindir}/*
