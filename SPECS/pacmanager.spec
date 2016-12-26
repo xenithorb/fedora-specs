@@ -8,8 +8,10 @@ License:    GPLv3+
 URL:        https://sites.google.com/site/davidtv/
 Source0:    https://downloads.sourceforge.net/project/pacmanager/pac-4.0/pac-%{version}-all.tar.gz
 BuildArch:  noarch
-Requires:   perl vte ftp telnet perl-Gtk2-Unique perl-Gnome2-Vte
+Requires:   perl vte ftp telnet perl-Gtk2-Unique perl-Gnome2-Vte perl-Gnome2-GConf
 Requires:   perl-IO-Stty perl-Crypt-Blowfish perl-Crypt-Rijndael
+Requires:   perl-YAML uuid-perl perl-Crypt-CBC perl-Gtk2-Ex-Simple-List
+Requires:   perl-Gtk2-GladeXML 
 BuildRequires: pkgconfig(bash-completion)
 BuildRequires: desktop-file-utils
 
