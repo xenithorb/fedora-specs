@@ -16,12 +16,9 @@ URL:      https://github.com/LedgerHQ/%{srcname}
 Source0:  https://github.com/LedgerHQ/%{srcname}/archive/v%{version}.tar.gz
 
 BuildArch:     noarch
-BuildRequires: python2-devel
-#BuildRequires: python3-devel
-BuildRequires: libusbx-devel systemd-devel
+# Tests require these but dont' work without internet
+#BuildRequires: libusbx-devel systemd-devel
 
-Requires: python2-hidapi
-Requires: hidapi >= 0.7.99
 
 %description
 %{desc}
@@ -29,6 +26,8 @@ Requires: hidapi >= 0.7.99
 
 %package -n python2-%{libname}
 Summary: %{sum}
+BuildRequires: python2-devel
+Requires: python2-hidapi hidapi >= 0.7.99
 %{?python_provide:%python_provide python2-%{libname}}
 
 %description -n python2-%{libname}
@@ -37,6 +36,8 @@ Summary: %{sum}
 
 #%%package -n python3-%%{libname}
 #Summary: %%{sum}
+#BuildRequires: python3-devel
+#Requires: python3-hidapi hidapi >= 0.7.99
 #%%{?python_provide:%%python_provide python3-%%{libname}}
 #
 #%%description -n python3-%%{libname}
