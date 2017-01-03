@@ -1,33 +1,46 @@
-%global srcname btchip-python
+%global libname btchip
+%global srcname %{libname}-python
+%global sum Python communication library for Ledger Hardware Wallet products
+%global desc %{srcname} is a python API for communicating primarily with the \
+Ledger HW.1 hardware bitcoin wallet. This library is also adds compatibility \
+to Electrum in order to use the "Nano", "Nano S", and other Ledger-based \
+hardware wallets.
 
-# sitelib for noarch packages, sitearch for others (remove the unneeded one)
-%{!?__python2: %global __python2 %__python}
-%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-%{!?python2_sitearch: %global python2_sitearch %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
-
-
-Name:     python2-btchip
+Name:     python-%{libname}
 Version:  0.1.18
-Release:  1%{?dist}
-Summary:  Python communication library for Ledger Hardware Wallet products
+Release:  2%{?dist}
+Summary:  %{sum}
 
 License:  ASL 2.0
 URL:      https://github.com/LedgerHQ/%{srcname}
 Source0:  https://github.com/LedgerHQ/%{srcname}/archive/v%{version}.tar.gz
 
 BuildArch:     noarch
-BuildRequires: python2 python2-devel python-setuptools
-#BuildRequires: libusbx-devel hidapi
+BuildRequires: python2-devel
+#BuildRequires: python3-devel
+BuildRequires: libusbx-devel systemd-devel
 
-Requires: python2 python2-hidapi
+Requires: python2-hidapi
 Requires: hidapi >= 0.7.99
 
-%{?python_provide: %python_provide python2-%{srcname}}
-
 %description
-%{srcname} is a python API for communicating primarily with the Ledger HW.1
-hardware bitcoin wallet. This library is also adds compatibility to Electrum in
-order to use the "Nano", "Nano S", and other Ledger-based hardware wallets.
+%{desc}
+
+
+%package -n python2-%{libname}
+Summary: %{sum}
+%{?python_provide:%python_provide python2-%{libname}}
+
+%description -n python2-%{libname}
+%{desc}
+
+
+#%%package -n python3-%%{libname}
+#Summary: %%{sum}
+#%%{?python_provide:%%python_provide python3-%%{libname}}
+#
+#%%description -n python3-%%{libname}
+#%%{desc}
 
 
 %prep
@@ -36,24 +49,35 @@ order to use the "Nano", "Nano S", and other Ledger-based hardware wallets.
 
 %build
 %py2_build
+#%%py3_build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %py2_install
+#%%py3_install
 
 
 %check
+# Current tests try to contact PyPi and fail on Koji
 #%%{__python2} setup.py test
+#%%{__python3} setup.py test
 
 
-%files
+%files -n python2-%{libname}
 %license LICENSE
 %doc README.md
-# For noarch packages: sitelib
 %{python2_sitelib}/*
 
 
+#%%files -n python3-%%{libname}
+#%%license LICENSE
+#%%doc README.md
+#%%{python3_sitelib}/*
+
+
 %changelog
-* Sun Jan  1 2017 Michael Goodwin <mike@mgoodwin.net> - 0.1.18-1
+* Tue Jan 3 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.1.18-2
+- Improve SPEC for most recent python packaging guidelines
+
+* Sun Jan 1 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.1.18-1
 - Initial packaging of btchip-python for Fedora
