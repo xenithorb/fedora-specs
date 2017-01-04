@@ -2,7 +2,7 @@
 %global srcname %{libname}-python
 %global sum Python communication library for Ledger Hardware Wallet products
 %global desc %{srcname} is a python API for communicating primarily with the \
-Ledger HW.1 hardware bitcoin wallet. This library is also adds compatibility \
+Ledger HW.1 hardware bitcoin wallet. This library also adds compatibility \
 to Electrum in order to use the "Nano", "Nano S", and other Ledger-based \
 hardware wallets.
 
@@ -16,7 +16,7 @@ URL:      https://github.com/LedgerHQ/%{srcname}
 Source0:  https://github.com/LedgerHQ/%{srcname}/archive/v%{version}.tar.gz
 
 BuildArch:     noarch
-# Tests require these but dont' work without internet
+# Tests require these but don't work without internet
 #BuildRequires: libusbx-devel systemd-devel
 
 
