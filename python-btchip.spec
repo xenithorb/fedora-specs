@@ -8,7 +8,7 @@ hardware wallets.
 
 Name:     python-%{libname}
 Version:  0.1.18
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  %{sum}
 
 License:  ASL 2.0
@@ -34,34 +34,21 @@ Requires: python2-hidapi hidapi >= 0.7.99
 %{desc}
 
 
-#%%package -n python3-%%{libname}
-#Summary: %%{sum}
-#BuildRequires: python3-devel
-#Requires: python3-hidapi hidapi >= 0.7.99
-#%%{?python_provide:%%python_provide python3-%%{libname}}
-#
-#%%description -n python3-%%{libname}
-#%%{desc}
-
-
 %prep
 %autosetup -n %{srcname}-%{version}
 
 
 %build
 %py2_build
-#%%py3_build
 
 
 %install
 %py2_install
-#%%py3_install
 
 
 %check
 # Current tests try to contact PyPi and fail on Koji
 #%%{__python2} setup.py test
-#%%{__python3} setup.py test
 
 
 %files -n python2-%{libname}
@@ -70,13 +57,10 @@ Requires: python2-hidapi hidapi >= 0.7.99
 %{python2_sitelib}/*
 
 
-#%%files -n python3-%%{libname}
-#%%license LICENSE
-#%%doc README.md
-#%%{python3_sitelib}/*
-
-
 %changelog
+* Wed Jan 4 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.1.18-3
+- Final finishing touches after package review
+
 * Tue Jan 3 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.1.18-2
 - Improve SPEC for most recent python packaging guidelines
 
