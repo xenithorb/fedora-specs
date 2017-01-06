@@ -2,16 +2,20 @@
 
 Name:       pacmanager
 Version:    4.5.5.7
-Release:    3%{?dist}
+Release:    7%{?dist}
 Summary:    Perl Auto Connector a multi-purpose SSH/terminal connection manager
 License:    GPLv3+
 URL:        https://sites.google.com/site/davidtv/
 Source0:    https://downloads.sourceforge.net/project/pacmanager/pac-4.0/pac-%{version}-all.tar.gz
 BuildArch:  noarch
-Requires:   perl vte ftp telnet perl-Gtk2-Unique perl-Gnome2-Vte perl-Gnome2-GConf
-Requires:   perl-IO-Stty perl-Crypt-Blowfish perl-Crypt-Rijndael
-Requires:   perl-YAML uuid-perl perl-Crypt-CBC perl-Gtk2-Ex-Simple-List
-Requires:   perl-Gtk2-GladeXML 
+Requires:   perl-Gtk2-Unique perl-Gtk2-Ex-Simple-List perl-Gtk2-GladeXML perl-Gtk2
+Requires:   perl-Gnome2-Vte perl-Gnome2-GConf
+Requires:   perl-Crypt-Blowfish perl-Crypt-Rijndael perl-Crypt-CBC
+Requires:   perl-YAML uuid-perl perl-Expect perl-IO-Stty perl-IO-Tty
+Requires:   perl-Net-Ping perl-Net-ARP perl-Digest-SHA1 perl-Digest-SHA
+Requires:   perl-Carp perl-Encode perl-Exporter perl-Socket
+Requires:   perl-Socket6 perl-Storable perl-Time-HiRes perl-constant
+Requires:   perl vte ftp telnet bash
 BuildRequires: pkgconfig(bash-completion)
 BuildRequires: desktop-file-utils
 
@@ -83,7 +87,7 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/lib/ex/vte*
 %doc README
 %license LICENSE
 %{_mandir}/man1/%{name}*
-%{_datadir}/%{name}/*
+%{_datadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_bashcompletiondir}/%{name}*
@@ -106,5 +110,15 @@ fi
 
 
 %changelog
+* Mon Dec 26 2016 Michael Goodwin <mike@mgoodwin.net> 4.5.5.7-7
+- Remove perl-libs as explicit dependency
+
+* Mon Dec 26 2016 Michael Goodwin <mike@mgoodwin.net> 4.5.5.7-5
+- Add missing dependencies
+
+* Wed Sep 28 2016 Michael Goodwin <mike@mgoodwin.net> 4.5.5.7-4
+- Post-acceptance SPEC updates
+    https://bugzilla.redhat.com/show_bug.cgi?id=1372123#c5
+
 * Wed Aug 31 2016 Michael Goodwin <mike@mgoodwin.net> 4.5.5.7
 - Initial packaging of pacmanager RPM
