@@ -1,5 +1,5 @@
 %global srcname ECPy
-%global sum Pure Pyhton Elliptic Curve Library
+%global sum Pure Python Elliptic Curve Library
 %global desc ECPy (pronounced ekpy), is a pure python Elliptic Curve library \
 providing ECDSA, EDDSA, ECSchnorr, Borromean signatures as well as Point \
 operations.\
@@ -54,9 +54,10 @@ Requires: python3-future
 %py3_install
 
 
-%check
-# Current tests try to contact PyPi and fail on Koji
+#%%check
+# Currently no tests available
 #%%{__python2} setup.py test
+#%%{__python3} setup.py test
 
 
 %files -n python2-%{srcname}
