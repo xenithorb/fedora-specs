@@ -75,7 +75,4 @@ rm -f doc/build/singlehtml/{.buildinfo,.nojekyll}
 
 %changelog
 * Mon Jan 9 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.8.1-1
-- Package review updates
-
-* Fri Jan 6 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.8.1-0
 - Initial packaging for Fedora
