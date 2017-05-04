@@ -7,8 +7,8 @@ to Electrum in order to use the "Nano", "Nano S", and other Ledger-based \
 hardware wallets.
 
 Name:     python-%{libname}
-Version:  0.1.18
-Release:  4%{?dist}
+Version:  0.1.20
+Release:  1%{?dist}
 Summary:  %{sum}
 
 License:  ASL 2.0
@@ -58,6 +58,9 @@ Requires: python2-hidapi hidapi >= 0.7.99
 
 
 %changelog
+* Thu May 04 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.1.20-1
+- Update to 0.1.20
+
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
