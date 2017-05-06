@@ -12,18 +12,18 @@
 %global _commit develop
 %global _shortcommit %(c=%{_commit}; echo ${c:0:7})
 
-Name:    rocketchat-desktop
-Version: 2.8.0
-Release: 100.git%{_shortcommit}%{?dist}
-Summary: Rocket.Chat Native Cross-Platform Desktop Application via Electron
-Group:   Applications/Communications
-Vendor:  Rocket.Chat Community
-License: MIT
-URL:     https://rocket.chat/
-Source0: https://github.com/RocketChat/Rocket.Chat.Electron/archive/%{_commit}/%{repo}-%{_shortcommit}.tar.gz
-AutoReq: 0
+Name:		rocketchat-desktop
+Version:	2.8.0
+Release:	102.git%{_shortcommit}%{?dist}
+Summary:	Rocket.Chat Native Cross-Platform Desktop Application via Electron
+Group:		Applications/Communications
+Vendor:		Rocket.Chat Community
+License:	MIT
+URL:		https://rocket.chat/
+Source0:	https://github.com/RocketChat/%{project}/archive/%{_commit}/%{repo}-%{_shortcommit}.tar.gz
+AutoReq:	0
 
-Obsoletes: rocketchat
+Obsoletes: rocketchat <= %{version}
 
 BuildRequires: npm
 BuildRequires: git-core
@@ -43,50 +43,50 @@ Our goal is to become the number one cross-platform open source chat solution
 
 %build
 
-node-gyp -v; node -v; npm -v
+node-gyp -v; %{__nodejs} -v; npm -v
 
 # Remove deb and rpm targets, only output dir
-/usr/bin/env python <<'EOF'
-import json
-with open("package.json", "r+") as file:
-    package = json.load(file)
-    package['build']['linux']['target'] = ["dir"]
-    package['name'] = "%{name}"
-    file.seek(0)
-    json.dump(package, file, indent=4)
-EOF
+%{__python} <<-'EOF'
+	import json
+	with open("package.json", "r+") as file:
+	    package = json.load(file)
+	    package['build']['linux']['target'] = ["dir"]
+	    package['name'] = "%{name}"
+	    file.seek(0)
+	    json.dump(package, file, indent=4)
+	EOF
 
 npm install
 npm run release
 
 
 %install
-install -d %{buildroot}%{_datadir}/applications
-install -d %{buildroot}%{_bindir}
-install -d %{buildroot}%{_optdir}/%{name}
-install -Dm644 build/icons/512x512.png \
-    %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/%{name}.png
+%{__install} -d %{buildroot}%{_datadir}/applications
+%{__install} -d %{buildroot}%{_bindir}
+%{__install} -d %{buildroot}%{_optdir}/%{name}
+%{__install} -Dm644 build/icons/512x512.png \
+	%{buildroot}%{_datadir}/icons/hicolor/512x512/apps/%{name}.png
 
-cp -r dist/linux-*unpacked/* %{buildroot}%{_optdir}/%{name}/
+%{__cp} -r dist/linux-*unpacked/* %{buildroot}%{_optdir}/%{name}/
 
-cat <<-EOF > %{buildroot}%{_datadir}/applications/%{name}.desktop
-  [Desktop Entry]
-  Name=Rocket.Chat+
-  Comment=Rocket.Chat Native Cross-Platform Desktop Application via Electron.
-  Exec="/usr/bin/%{name}"
-  Terminal=false
-  Type=Application
-  Icon=%{_datadir}/icons/hicolor/512x512/apps/%{name}.png
-  Categories=GNOME;GTK;Network;InstantMessaging
-  StartupWMClass=Rocket.Chat+
-EOF
+%{__cat} <<-'EOF' > %{buildroot}%{_datadir}/applications/%{name}.desktop
+	[Desktop Entry]
+	Name=Rocket.Chat+
+	Comment=Rocket.Chat Native Cross-Platform Desktop Application via Electron.
+	Exec=/usr/bin/%{name}
+	Terminal=false
+	Type=Application
+	Icon=%{_datadir}/icons/hicolor/512x512/apps/%{name}.png
+	Categories=GNOME;GTK;Network;InstantMessaging
+	StartupWMClass=Rocket.Chat+
+	EOF
 
-cat <<-EOF > %{buildroot}%{_bindir}/%{name}
-    #!/usr/bin/env
-    %{_optdir}/%{name}/%{name}
-EOF
+%{__cat} <<-'EOF' > %{buildroot}%{_bindir}/%{name}
+	#!/bin/sh
+	exec %{_optdir}/%{name}/%{name}
+	EOF
 
-chmod +x %{buildroot}%{_bindir}/%{name}
+%{__chmod} +x %{buildroot}%{_bindir}/%{name}
 
 
 %post
@@ -96,8 +96,8 @@ chmod +x %{buildroot}%{_bindir}/%{name}
 
 %postun
 if [ $1 -eq 0 ]; then
-    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
-    /usr/bin/gtk-update-icon-cache -f -t -q %{_datadir}/icons/hicolor ||:
+	/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null ||:
+	/usr/bin/gtk-update-icon-cache -f -t -q %{_datadir}/icons/hicolor ||:
 fi
 /usr/bin/update-desktop-database &>/dev/null ||:
 
@@ -115,6 +115,9 @@ fi
 
 
 %changelog
+* Sat May 6 2017 xenithorb <mike@mgoodwin.net> - 2.8.0-102.gitdevelop
+- Spec updates
+- Use exec instead of env for wrapper
 * Wed May 3 2017 xenithorb <mike@mgoodwin.net> - 2.8.0-100.gitdevelop
 - Release channel version 2.8.0-develop
 * Mon Mar 6 2017 xenithorb <mike@mgoodwin.net> - 2.6.0-100.git70cb0d0
