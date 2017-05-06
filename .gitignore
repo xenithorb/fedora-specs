@@ -2,3 +2,5 @@
 *.log
 *.gz
 *.zip
+review-*
+results_*
