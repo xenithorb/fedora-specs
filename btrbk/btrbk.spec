@@ -1,6 +1,6 @@
 Name:           btrbk
 Version:        0.25.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tool for creating snapshots and remote backups of btrfs sub-volumes
 License:        GPLv3+
 URL:            https://digint.ch/btrbk/
@@ -10,8 +10,7 @@ Source0:        https://digint.ch/download/%{name}/releases/%{name}-%{version}.t
 BuildArch:      noarch
 BuildRequires:  systemd perl-generators
 
-%{?systemd_requires}
-Requires:       perl btrfs-progs
+Requires:       btrfs-progs
 
 %if 0%{?rhel} && 0%{?rhel} <= 7
 Requires:       openssh-clients pv
@@ -35,6 +34,7 @@ Recommends:     openssh-clients pv
 # Until patched upstream, modify Makefile to perserve timestamps during install
 # See: https://github.com/digint/btrbk/pull/164/files for upstream PR
 sed -i '/install/s/-Dm\([0-9]\{3,4\}\)/-pDm\1/' Makefile
+
 
 %install
 make DESTDIR=%{buildroot} \
@@ -63,6 +63,10 @@ mv %{buildroot}%{_sysconfdir}/btrbk/btrbk.conf{.example,}
 
 
 %changelog
+* Fri Jul 07 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.25.0-4
+- Removed perl from Requires, auto-generated
+- Removed %%{?systemd_requires}, for scriptlets only
+
 * Wed Jul  5 2017 Mike Goodwin <xenithorb@fedoraproject.org> - 0.25.0-3
 - License was GPLv3+ not GPLv3
 - Add perl-generators for BuildRequires
