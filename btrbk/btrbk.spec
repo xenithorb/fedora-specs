@@ -20,10 +20,10 @@ Recommends:     openssh-clients pv
 
 
 %description
-‎Backup tool for btrfs sub-volumes, using a configuration file, allows
-‎creation of backups from multiple sources to multiple destinations,
-‎with ssh and flexible retention policy support (hourly, daily,
-‎weekly, monthly)
+Backup tool for btrfs sub-volumes, using a configuration file, allows
+creation of backups from multiple sources to multiple destinations,
+with ssh and flexible retention policy support (hourly, daily,
+weekly, monthly)
 
 
 %prep
