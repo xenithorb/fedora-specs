@@ -5,7 +5,7 @@ providing ECDSA, EDDSA, ECSchnorr, Borromean signatures as well as Point \
 operations.
 
 Name:     python-%{srcname}
-Version:  0.8.1
+Version:  0.8.2
 Release:  1%{?dist}
 Summary:  Python Elliptic Curve Library
 
@@ -74,5 +74,11 @@ rm -f doc/build/singlehtml/{.buildinfo,.nojekyll}
 
 
 %changelog
+* Thu Jul 06 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.8.2-1
+- Update to 0.8.2
+
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Mon Jan 9 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.8.1-1
 - Initial packaging for Fedora
