@@ -8,7 +8,7 @@ hardware wallets.
 
 Name:     python-%{libname}
 Version:  0.1.20
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  %{sum}
 
 License:  ASL 2.0
@@ -58,6 +58,9 @@ Requires: python2-hidapi hidapi >= 0.7.99
 
 
 %changelog
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.20-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Thu May 04 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.1.20-1
 - Update to 0.1.20
 
