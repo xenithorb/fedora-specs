@@ -5,7 +5,7 @@
 %global __provides_exclude (npm)
 %global project Rocket.Chat.Electron
 %global repo %{project}
-%global node_ver 4.7.1
+%global node_ver 6.11.3
 %global _optdir /opt
 
 # commit
@@ -13,8 +13,8 @@
 %global _shortcommit %(c=%{_commit}; echo ${c:0:7})
 
 Name:		rocketchat-desktop
-Version:	2.8.0
-Release:	102.git%{_shortcommit}%{?dist}
+Version:	2.10.0
+Release:	100.git%{_shortcommit}%{?dist}
 Summary:	Rocket.Chat Native Cross-Platform Desktop Application via Electron
 Group:		Applications/Communications
 Vendor:		Rocket.Chat Community
@@ -115,6 +115,8 @@ fi
 
 
 %changelog
+* Wed Oct 4 2017 xenithorb <mike@mgoodwin.net> - 2.9.0-100.gitdevelop
+- Bump spec
 * Sat May 6 2017 xenithorb <mike@mgoodwin.net> - 2.8.0-102.gitdevelop
 - Spec updates
 - Use exec instead of env for wrapper
