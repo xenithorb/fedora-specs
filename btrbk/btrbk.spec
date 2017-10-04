@@ -1,6 +1,6 @@
 Name:           btrbk
-Version:        0.25.0
-Release:        4%{?dist}
+Version:        0.25.1
+Release:        1%{?dist}
 Summary:        Tool for creating snapshots and remote backups of btrfs sub-volumes
 License:        GPLv3+
 URL:            https://digint.ch/btrbk/
@@ -63,6 +63,12 @@ mv %{buildroot}%{_sysconfdir}/btrbk/btrbk.conf{.example,}
 
 
 %changelog
+* Mon Jul 31 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.25.1-1
+- Update to 0.25.1 (#1476626)
+
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.25.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Fri Jul 07 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.25.0-4
 - Removed perl from Requires, auto-generated
 - Removed %%{?systemd_requires}, for scriptlets only
