@@ -1,5 +1,7 @@
+%define __python %{__python3}
+
 Name:           btrbk
-Version:        0.25.1
+Version:        0.26.0
 Release:        1%{?dist}
 Summary:        Tool for creating snapshots and remote backups of btrfs sub-volumes
 License:        GPLv3+
@@ -9,6 +11,7 @@ Source0:        https://digint.ch/download/%{name}/releases/%{name}-%{version}.t
 
 BuildArch:      noarch
 BuildRequires:  systemd perl-generators
+BuildRequires:  asciidoc xmlto
 
 Requires:       btrfs-progs
 
@@ -30,28 +33,22 @@ weekly, monthly)
 %autosetup
 
 
-%build
-# Until patched upstream, modify Makefile to perserve timestamps during install
-# See: https://github.com/digint/btrbk/pull/164/files for upstream PR
-sed -i '/install/s/-Dm\([0-9]\{3,4\}\)/-pDm\1/' Makefile
-
-
 %install
 make DESTDIR=%{buildroot} \
     install-bin \
     install-systemd \
-    install-share
+    install-share \
+    install-man \
+    install-doc \
+    install-etc
 
-install -pDm644 doc/btrbk.1 "%{buildroot}%{_mandir}/man1/btrbk.1"
-install -pDm644 doc/ssh_filter_btrbk.1 "%{buildroot}%{_mandir}/man1/ssh_filter_btrbk.1"
-install -pDm644 doc/btrbk.conf.5 "%{buildroot}%{_mandir}/man5/btrbk.conf.5"
-
-rm -rf doc/*.{1,5}
-mv %{buildroot}%{_sysconfdir}/btrbk/btrbk.conf{.example,}
+mkdir __doc
+mv %{buildroot}/%{_docdir}/btrbk/* __doc/
+rm -rf %{buildoroot}/%{_docdir}/btrbk
 
 
 %files
-%doc doc/* README.md ChangeLog
+%doc __doc/*
 %config(noreplace) %{_sysconfdir}/btrbk
 %license COPYING
 %{_sbindir}/btrbk
@@ -63,6 +60,13 @@ mv %{buildroot}%{_sysconfdir}/btrbk/btrbk.conf{.example,}
 
 
 %changelog
+* Sat Oct 14 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.26.0-1
+- Update to 0.26.0 (#1501520)
+  - Assorted bugfixes
+- MIGRATION NEEDED: For raw targets see ChangeLog in docs, or:
+   - https://github.com/digint/btrbk/blob/v0.26.0/ChangeLog
+- Resume deprecated from "-r" to "replace"
+
 * Mon Jul 31 2017 Michael Goodwin <xenithorb@fedoraproject.org> - 0.25.1-1
 - Update to 0.25.1 (#1476626)
 
