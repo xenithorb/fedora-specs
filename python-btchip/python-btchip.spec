@@ -10,7 +10,7 @@ hardware wallets.
 
 Name:     python-%{libname}
 Version:  0.1.21
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  %{sum}
 
 License:  ASL 2.0
